@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorry... meri pyaari si baat 💖</title>
+    <!-- Fonts & base styles -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Montserrat', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(145deg, #ffe9f4 0%, #fde0f0 30%, #f3e7ff 100%);
+            background-attachment: fixed;
+            position: relative;
+            overflow-x: hidden;
+            padding: 16px;
+        }
+
+        /* sparkles + floating hearts background */
+        .floating-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-sparkle {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.5);
+            font-size: 24px;
+            animation: floatUp 8s linear infinite;
+            user-select: none;
+            opacity: 0.7;
+            filter: drop-shadow(0 0 4px #ffb7c5);
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0.5; }
+            100% { transform: translateY(-20vh) rotate(20deg) scale(1.2); opacity: 0; }
+        }
+
+        /* main container */
+        .card-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 460px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 560px;
+        }
+
+        /* popup / card style */
+        .popup-card, .landing-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 42px;
+            padding: 32px 28px;
+            width: 100%;
+            box-shadow: 0 25px 45px -8px rgba(252, 142, 172, 0.3), 0 10px 20px -5px rgba(255, 200, 220, 0.5), inset 0 2px 8px rgba(255,255,255,0.8);
+            border: 1px solid rgba(255,255,255,0.6);
+            transition: all 0.3s ease;
+            text-align: center;
+            animation: fadeScale 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fadeScale {
+            0% { opacity: 0; transform: scale(0.92); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        h1, h2 {
+            font-weight: 600;
+            letter-spacing: -0.2px;
+            color: #6d4c5d;
+        }
+
+        .landing-card h1 {
+            font-size: 2.2rem;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            color: #b3546b;
+        }
+
+        .subtext {
+            font-size: 1.2rem;
+            color: #a45d7a;
+            margin-bottom: 36px;
+            font-weight: 400;
+        }
+
+        .cute-btn {
+            background: white;
+            border: none;
+            padding: 16px 38px;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #a53462;
+            box-shadow: 0 10px 18px -8px #fba6c1, 0 0 0 2px rgba(255,255,240,0.7);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            backdrop-filter: blur(4px);
+            border: 1px solid #ffffffd6;
+            margin: 12px 0 8px;
+        }
+
+        .cute-btn:hover {
+            transform: scale(1.05);
+            background: #fff9fc;
+            box-shadow: 0 18px 26px -8px #ff90b5;
+        }
+
+        .cute-btn:active {
+            transform: scale(0.98);
+        }
+
+        .next-btn {
+            background: #fddae7;
+            color: #792e4b;
+            padding: 14px 34px;
+            font-size: 1.25rem;
+            border: 2px solid #ffffffb3;
+        }
+
+        .popup-text {
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin: 28px 0 28px;
+            color: #773d58;
+            line-height: 1.5;
+        }
+
+        .flex-btns {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0 10px;
+        }
+
+        .yes-btn {
+            background: #ffd0dc;
+            color: #a03a5e;
+            flex: 1 1 auto;
+            min-width: 140px;
+            border: 2px solid white;
+        }
+
+        .no-btn {
+            background: #e4d1dc;
+            color: #795162;
+            flex: 1 1 auto;
+            min-width: 140px;
+            border: 2px solid #ffeef4;
+        }
+
+        .celebration-message, .sad-message {
+            background: rgba(255, 240, 245, 0.8);
+            border-radius: 60px;
+            padding: 36px 28px;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #ac4970;
+            animation: softGlow 1.5s infinite alternate;
+        }
+
+        @keyframes softGlow {
+            0% { box-shadow: 0 8px 22px #ffb7c5; }
+            100% { box-shadow: 0 8px 38px #ffa5bc; }
+        }
+
+        .sad-message {
+            background: #f3e3ecdd;
+            color: #84566b;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .heart-icon {
+            font-size: 2rem;
+            filter: drop-shadow(0 4px 6px #ffbcd2);
+        }
+
+        /* music toggle */
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 99;
+            background: rgba(255, 230, 240, 0.8);
+            backdrop-filter: blur(6px);
+            padding: 14px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            border: 2px solid #ffbfd5;
+            box-shadow: 0 5px 18px #ffb0c3;
+            cursor: pointer;
+            transition: 0.2s;
+            width: 58px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.12);
+            background: #ffe4f0;
+        }
+
+        /* mobile adjustments */
+        @media (max-width: 460px) {
+            .popup-text { font-size: 1.4rem; }
+            .landing-card h1 { font-size: 1.9rem; }
+            .cute-btn { padding: 14px 28px; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- background floating hearts / sparkles -->
+    <div class="floating-bg" id="floatingBg"></div>
+
+    <!-- soft background music toggle (muted autoplay attempt) -->
+    <div class="music-toggle" id="musicBtn" onclick="toggleMusic()">
+        <span id="musicIcon">🔇</span>
+    </div>
+    <audio id="bgMusic" loop preload="auto" style="display: none;">
+        <source src="data:audio/mp3;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdmaWxlIHdpdGggdHVuZXMgZm9yIGJhY2tncm91bmQgbXVzaWMsIGdlbnRsZSBhbmQgc29mdC4gIC0tPiBURU5DIFNvZnQgU29uZy4gSWYgeW91IGNhbiBoZWFyIHRoaXMsIHlvdSBoYXZlIGEgcHJvYmxlbS4gCg==" type="audio/mp3">
+    </audio>
+
+    <!-- main card container -->
+    <div class="card-wrapper" id="app">
+        <!-- landing screen -->
+        <div id="landingScreen" class="landing-card">
+            <h1>Hey… ek chhoti si baat hai 🥺</h1>
+            <div class="subtext">Please thoda sa time de do…</div>
+            <button class="cute-btn" id="startBtn">Click karo na ❤️</button>
+            <div style="margin-top: 28px; font-size: 1.8rem;">🥺💕</div>
+        </div>
+
+        <!-- dynamic popup container (replaces landing) -->
+        <div id="popupContainer" class="popup-card hidden">
+            <div id="popupContent"></div>
+        </div>
+
+        <!-- final choices / result container -->
+        <div id="finalScreen" class="popup-card hidden"></div>
+    </div>
+
+    <script>
+        // ---------- DATA ----------
+        const popupSteps = [
+            "Main jaanta hoon… maine galti ki 💔",
+            "Intent kabhi hurt karne ka nahi tha 😔",
+            "Agar possible ho…",
+            "Toh mujhe maaf kar sakti ho? ❤️"
+        ];
+
+        // state
+        let currentStep = 0;
+        let musicPlaying = false;
+        const audio = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const bg = document.getElementById('floatingBg');
+
+        // floating background generator (hearts + sparkles)
+        function createFloatingElements() {
+            for (let i = 0; i < 28; i++) {
+                const span = document.createElement('span');
+                span.className = 'heart-sparkle';
+                const isHeart = Math.random() > 0.3 ? '❤️' : '✨';
+                const extras = ['🌸', '💖', '🥰', '💕', '🌟', '💗'][Math.floor(Math.random() * 6)];
+                span.textContent = Math.random() > 0.6 ? isHeart : extras;
+                span.style.left = Math.random() * 100 + '%';
+                span.style.animationDuration = (6 + Math.random() * 10) + 's';
+                span.style.fontSize = (16 + Math.random() * 25) + 'px';
+                span.style.animationDelay = Math.random() * -20 + 's';
+                span.style.opacity = 0.4 + Math.random() * 0.4;
+                bg.appendChild(span);
+            }
+        }
+        createFloatingElements();
+
+        // UI elements
+        const landing = document.getElementById('landingScreen');
+        const popupContainer = document.getElementById('popupContainer');
+        const popupContent = document.getElementById('popupContent');
+        const finalScreen = document.getElementById('finalScreen');
+        const startBtn = document.getElementById('startBtn');
+
+        // ---------- RENDER POPUP ----------
+        function renderPopup(step) {
+            if (step < popupSteps.length) {
+                let text = popupSteps[step];
+                let buttonText = (step === popupSteps.length - 1) ? "Final Message 💌" : "Next ➝";
+                popupContent.innerHTML = `
+                    <div class="popup-text">${text}</div>
+                    <button class="cute-btn next-btn" id="nextPopupBtn">${buttonText}</button>
+                `;
+                popupContainer.classList.remove('hidden');
+                landing.classList.add('hidden');
+                finalScreen.classList.add('hidden');
+
+                document.getElementById('nextPopupBtn').addEventListener('click', nextStep);
+            } else {
+                // show final screen
+                showFinalScreen();
+            }
+        }
+
+        function nextStep() {
+            currentStep++;
+            if (currentStep < popupSteps.length) {
+                renderPopup(currentStep);
+            } else {
+                showFinalScreen();
+            }
+        }
+
+        function showFinalScreen() {
+            popupContainer.classList.add('hidden');
+            finalScreen.classList.remove('hidden');
+            finalScreen.innerHTML = `
+                <div style="animation: fadeScale 0.4s;">
+                    <div style="font-size: 2.2rem; margin-bottom: 12px;">Toh bolo…</div>
+                    <div class="popup-text" style="font-size:1.9rem; margin: 18px 0;">Kya tum mujhe maaf karogi? 🥺❤️</div>
+                    <div class="flex-btns">
+                        <button class="cute-btn yes-btn" id="yesBtn">💖 Haan, maaf kiya</button>
+                        <button class="cute-btn no-btn" id="noBtn">💔 Nahi…</button>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('yesBtn').addEventListener('click', showYes);
+            document.getElementById('noBtn').addEventListener('click', showNo);
+        }
+
+        // celebration / sad
+        function showYes() {
+            finalScreen.innerHTML = `
+                <div class="celebration-message">
+                    ❤️❤️❤️<br>
+                    Thank youuu ❤️<br>
+                    Tum sach me bohot special ho 🥰 I Love You Jaan<br>
+                    <span style="font-size:3rem;">🥳💗✨</span>
+                </div>
+            `;
+            // extra confetti-like hearts (quick floating)
+            for (let i=0;i<12;i++) {
+                setTimeout(() => {
+                    let heart = document.createElement('span');
+                    heart.className = 'heart-sparkle';
+                    heart.textContent = ['💖','🌸','🎉','💗','🥰','❤️'][Math.floor(Math.random()*6)];
+                    heart.style.left = Math.random()*100+'%';
+                    heart.style.top = '80%';
+                    heart.style.animationDuration = '2s';
+                    heart.style.fontSize = '35px';
+                    heart.style.opacity = '0.9';
+                    bg.appendChild(heart);
+                    setTimeout(() => heart.remove(), 2000);
+                }, i*70);
+            }
+        }
+
+        function showNo() {
+            finalScreen.innerHTML = `
+                <div class="sad-message">
+                    😔💔<br>
+                    Okay… samajh sakta hoon 😔<br>
+                    Par main wait karunga … ❤️<br>
+                    <span style="font-size:2.8rem;">🥺💫</span>
+                </div>
+            `;
+        }
+
+        // start button listener
+        startBtn.addEventListener('click', () => {
+            currentStep = 0;
+            renderPopup(0);
+        });
+
+        // music toggle
+        function toggleMusic() {
+            if (musicPlaying) {
+                audio.pause();
+                musicIcon.innerText = '🔇';
+            } else {
+                audio.play().catch(e => console.log('audio play blocked, but toggle works'));
+                musicIcon.innerText = '🎵';
+            }
+            musicPlaying = !musicPlaying;
+        }
+        window.toggleMusic = toggleMusic;
+
+        // optional: mobile responsive handled by css, fine.
+
+        // soft hover micro-interactions (all buttons have cute class already)
+        // extra: dynamic emoji change on hover for yes/no
+        document.addEventListener('mouseover', function(e) {
+            if (e.target.classList.contains('yes-btn')) {
+                e.target.innerText = '💖 Haan, maaf kiya (hmesha)';
+            } else if (e.target.classList.contains('no-btn')) {
+                e.target.innerText = '💔 Nahi… (soch lo)';
+            }
+        });
+        document.addEventListener('mouseout', function(e) {
+            if (e.target.classList.contains('yes-btn')) {
+                e.target.innerText = '💖 Haan, maaf kiya';
+            } else if (e.target.classList.contains('no-btn')) {
+                e.target.innerText = '💔 Nahi…';
+            }
+        });
+
+        // preload / first load no music autoplay (due to browser policies) – but toggle works
+        // add interactive sparkle on any button click (micro)
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('cute-btn')) {
+                let spark = document.createElement('span');
+                spark.className = 'heart-sparkle';
+                spark.textContent = '✨';
+                spark.style.left = e.clientX + 'px';
+                spark.style.top = e.clientY + 'px';
+                spark.style.animation = 'none';
+                spark.style.fontSize = '30px';
+                spark.style.opacity = '0.8';
+                spark.style.position = 'fixed';
+                spark.style.transform = 'translate(-50%, -50%)';
+                spark.style.pointerEvents = 'none';
+                spark.style.zIndex = '9999';
+                document.body.appendChild(spark);
+                setTimeout(() => spark.remove(), 600);
+            }
+        });
+
+        // extra: initial hidden state: all fine
+        // if user clicks no, still gives soft feeling.
+
+        // reset if user wants to go back? not required but we can keep only forward flow.
+
+        // make final buttons accessible
+    </script>
+    <!-- additional manual sparkle -->
+    <div style="position:fixed; bottom:8px; left:10px; opacity:0.3; font-size:12px; color:#b38b9b; z-index:99;">mera dil ❤️</div>
+</body>
+</html>
